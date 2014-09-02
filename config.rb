@@ -1,25 +1,3 @@
-
-# To automatically replace the discovery token on 'vagrant up', uncomment
-# the lines below:
-#
-#if File.exists?('user-data') && ARGV[0].eql?('up')
-#  require 'open-uri'
-#  require 'yaml'
-# 
-#  token = open('https://discovery.etcd.io/new').read
-# 
-#  data = YAML.load(IO.readlines('user-data')[1..-1].join)
-#  data['coreos']['etcd']['discovery'] = token
-# 
-#  lines = YAML.dump(data).split("\n")
-#  lines[0] = '#cloud-config'
-# 
-#  open('user-data', 'r+') do |f|
-#    f.puts(lines.join("\n"))
-#  end
-#end
-#
-#
 # coreos-vagrant is configured through a series of configuration
 # options (global ruby variables) which are detailed below. To modify
 # these options, first copy this file to "config.rb". Then simply
@@ -27,10 +5,10 @@
 # after the equals sign..
 
 # Size of the CoreOS cluster created by Vagrant
-#$num_instances=1
+$num_instances=3
 
 # Official CoreOS channel from which updates should be downloaded
-#$update_channel='alpha'
+$update_channel="stable"
 
 # Log the serial consoles of CoreOS VMs to log/
 # Enable by setting value to true, disable with false
