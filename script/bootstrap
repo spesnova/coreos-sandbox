@@ -6,7 +6,6 @@
 
 set -e
 
-
 #
 # Welcome Message
 #
@@ -15,13 +14,38 @@ echo "  CoreOS Sandbox"
 echo ""
 
 #
+# Prepare .env
+#
+if test -f .env
+then
+  echo "  + .env found"
+else
+  echo "  + Creating .env"
+  cp .env.sample .env
+fi
+
+#
+# Prepare discovery token
+#
+source .env
+if [ $ETCD_DISCOVERY ]
+then
+  echo "  + Discovery token found"
+else
+  echo "  + Fetching and replacing discovery token..."
+  URL=`curl -s 'https://discovery.etcd.io/new'`
+  TOKEN=`echo $URL | sed "s/https:\/\/discovery.etcd.io\///g"`
+  sed -i -e "s/ETCD_DISCOVERY=/ETCD_DISCOVERY=https:\/\/discovery.etcd.io\/${TOKEN}/g" .env
+fi
+
+#
 # Install vagrant plugin
 #
 if [[ $(vagrant plugin list) =~ dotenv ]]
 then
-  echo "  + Vagrant plugin 'dotenv' found."
+  echo "  + Vagrant plugin 'dotenv' found"
 else
-  echo "  + Installing vagrant plugin 'dotenv'."
+  echo "  + Installing vagrant plugin 'dotenv'..."
   bundle exec vagrant plugin install dotenv
 fi
 
@@ -29,6 +53,6 @@ fi
 # Startup instructions
 #
 echo ""
-echo "  Good work. We're ready."
+echo "  Good work. We're ready"
 
 exit 0
