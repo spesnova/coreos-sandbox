@@ -30,3 +30,9 @@ coreos:
 
         [Install]
         WantedBy=sockets.target
+users:
+  - name: seigo
+    coreos-ssh-import-github: spesnova
+    groups:
+      - sudo
+      - docker
