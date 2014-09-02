@@ -1,6 +1,6 @@
 # CoreOS Sandbox
 This repo is a fork of [coreos/coreos-vagrant](https://github.com/coreos/coreos-vagrant).
-This provides a template Vagrantfile to create CoreOS clusters using Virtualbox and Vagrant.
+This provides a template Vagrantfile to create CoreOS cluster using Virtualbox and Vagrant.
 
 ## REQUIREMENTS
 Install dependencies
@@ -23,7 +23,8 @@ $ vagrant up
 $ vagrant ssh
 ```
 
-### USING GITHUB SSH KEY TO LOGIN
+## PROVISIONING WITH user-data
+### Using GitHub SSH key to login
 
 `user-data.yml.erb`
 
@@ -49,4 +50,18 @@ You can login to CoreOS machine using GitHub SSH key.
 
 ```bash
 $ ssh seigo@core-01
+```
+
+## CLUSTER SETUP
+### Cluster Nodes
+Configure `$num_instances` in `config.rb`
+
+```ruby
+$num_instances=3
+```
+
+### Specify channel
+
+```ruby
+$update_channel="stable"
 ```
