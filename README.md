@@ -22,3 +22,31 @@ Startup and SSH
 vagrant up
 vagrant ssh
 ```
+
+### USING GITHUB SSH KEY TO LOGIN
+
+`user-data.yml.erb`
+
+```
+#cloud-config
+
+users:
+  - name: seigo
+  coreos-ssh-import-github: seigo
+```
+
+`~/.ssh/config`
+
+```
+# Local CoreOS Cluster
+Host core-01
+  HostName 172.17.8.101
+  User         seigo
+  IdentityFile ~/.ssh/github_ssh_private_key
+```
+
+You can login to CoreOS machine using GitHub SSH key.
+
+```bash
+$ ssh seigo@core-01
+```
