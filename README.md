@@ -32,7 +32,7 @@ $ vagrant ssh
 
 users:
   - name: seigo
-  coreos-ssh-import-github: seigo
+  coreos-ssh-import-github: spesnova
 ```
 
 `~/.ssh/config`
