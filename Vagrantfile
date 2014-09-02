@@ -2,14 +2,19 @@
 # # vi: set ft=ruby :
 
 require 'fileutils'
+require 'erb'
 require 'dotenv'
 
 Dotenv.load
 
 Vagrant.require_version ">= 1.6.0"
 
+CLOUD_CONFIG_ERB_PATH = File.join(File.dirname(__FILE__), "user-data.yml.erb")
 CLOUD_CONFIG_PATH = File.join(File.dirname(__FILE__), "user-data")
 CONFIG = File.join(File.dirname(__FILE__), "config.rb")
+
+erb = File.open(CLOUD_CONFIG_ERB_PATH) { |f| ERB.new(f.read) }
+File.write(CLOUD_CONFIG_PATH, erb.result(binding))
 
 # Defaults for config options defined in CONFIG
 $num_instances = 1
