@@ -1,0 +1,34 @@
+#!/bin/bash
+#
+# bootstrap
+#
+# Get readly to use CoreOS clusters
+
+set -e
+
+
+#
+# Welcome Message
+#
+echo ""
+echo "  CoreOS Sandbox"
+echo ""
+
+#
+# Install vagrant plugin
+#
+if [[ $(vagrant plugin list) =~ dotenv ]]
+then
+  echo "  + Vagrant plugin 'dotenv' found."
+else
+  echo "  + Installing vagrant plugin 'dotenv'."
+  bundle exec vagrant plugin install dotenv
+fi
+
+#
+# Startup instructions
+#
+echo ""
+echo "  Good work. We're ready."
+
+exit 0
