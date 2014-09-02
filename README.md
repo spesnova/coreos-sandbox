@@ -5,8 +5,8 @@ This provides a template Vagrantfile to create CoreOS clusters using Virtualbox 
 ## REQUIREMENTS
 Install dependencies
 
-* [VirtualBox][virtualbox] 4.3.10 or greater.
-* [Vagrant][vagrant] 1.6 or greater.
+* [VirtualBox](https://www.virtualbox.org/) 4.3.10 or greater.
+* [Vagrant](https://www.vagrantup.com/downloads.html) 1.6 or greater.
 
 ## GETTING STARTED
 Clone this project and bootstrapping
@@ -19,8 +19,8 @@ $ script/bootstrap
 Startup and SSH
 
 ```
-vagrant up
-vagrant ssh
+$ vagrant up
+$ vagrant ssh
 ```
 
 ### USING GITHUB SSH KEY TO LOGIN
