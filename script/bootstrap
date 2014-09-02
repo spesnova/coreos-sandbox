@@ -35,7 +35,7 @@ else
   echo "  + Fetching and replacing discovery token..."
   URL=`curl -s 'https://discovery.etcd.io/new'`
   TOKEN=`echo $URL | sed "s/https:\/\/discovery.etcd.io\///g"`
-  sed -i -e "s/ETCD_DISCOVERY=/ETCD_DISCOVERY=https:\/\/discovery.etcd.io\/${TOKEN}/g" .env
+  sed -i.sample "s/ETCD_DISCOVERY=/ETCD_DISCOVERY=https:\/\/discovery.etcd.io\/${TOKEN}/g" .env
 fi
 
 #
