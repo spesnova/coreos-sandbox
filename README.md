@@ -53,6 +53,15 @@ $ ssh seigo@core-01
 ```
 
 ## CLUSTER SETUP
+### Etcd Discovery
+Get new token from https://discovery.etcd.io/new , then set this to `.env`
+
+```
+ETCD_DISCOVERY=https://discovery.etcd.io/xxxxxxxxxxxxxxxxxxxxx
+```
+
+Also, bootstrap script set new one if `ETCD_DISCOVERY` is empty.
+
 ### Cluster Nodes
 Configure `$num_instances` in `config.rb`
 
@@ -61,6 +70,7 @@ $num_instances=3
 ```
 
 ### Specify channel
+Configure `$update_channel` in `config.rb`
 
 ```ruby
 $update_channel="stable"
