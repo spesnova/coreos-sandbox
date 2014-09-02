@@ -2,6 +2,9 @@
 # # vi: set ft=ruby :
 
 require 'fileutils'
+require 'dotenv'
+
+Dotenv.load
 
 Vagrant.require_version ">= 1.6.0"
 
