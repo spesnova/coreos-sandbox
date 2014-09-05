@@ -30,6 +30,24 @@ coreos:
 
         [Install]
         WantedBy=sockets.target
+    - name: dd-agent.service
+      command: start
+      enable: true
+      content: |
+        [Unit]
+        Description=Datadog Agent
+        After=docker.service
+        Requires=docker.service
+
+        [Service]
+        TimeoutStartSec=0
+        ExecStartPre=-/usr/bin/docker kill dd-agent
+        ExecStartPre=-/usr/bin/docker rm dd-agent
+        ExecStartPre=/usr/bin/docker pull datadog/docker-dd-agent
+        ExecStart=/usr/bin/docker run -d --privileged --name dd-agent -h %H -v /var/run/docker.sock:/var/run/docker.sock -v /proc/mounts:/host/proc/mounts:ro -v /sys/fs/cgroup/:/host/sys/fs/cgroup:ro -e API_KEY=<%= ENV["DATADOG_API_KEY"] %> datadog/docker-dd-agent
+
+        [Install]
+        WantedBy=multi-user.target
     - name: settimezone.service
       command: start
       content: |
