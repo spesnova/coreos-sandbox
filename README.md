@@ -23,7 +23,7 @@ $ vagrant up
 $ vagrant ssh
 ```
 
-## PROVISIONING WITH user-data
+## PROVISIONING WITH CLOUD INIT
 ### Using GitHub SSH key to login
 
 `user-data.yml.erb`
@@ -74,4 +74,11 @@ Configure `$update_channel` in `config.rb`
 
 ```ruby
 $update_channel="stable"
+```
+
+## MONITORING
+### Datadog API Key
+
+```
+DATADOG_API_KEY=xxxxxxxxxxxxxxxxxxxx
 ```
