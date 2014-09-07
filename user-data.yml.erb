@@ -53,7 +53,7 @@ coreos:
         TimeoutStartSec=0
         ExecStartPre=-/usr/bin/docker kill dd-agent
         ExecStartPre=-/usr/bin/docker rm dd-agent
-        ExecStartPre=/usr/bin/docker pull datadog/docker-dd-agent
+        ExecStartPre=/usr/bin/docker pull datadog/docker-dd-agent:latest
         ExecStart=/usr/bin/docker run -d --privileged --name dd-agent -h %H -v /var/run/docker.sock:/var/run/docker.sock -v /proc/mounts:/host/proc/mounts:ro -v /sys/fs/cgroup/:/host/sys/fs/cgroup:ro -e API_KEY=<%= ENV["DATADOG_API_KEY"] %> datadog/docker-dd-agent
 
         [Install]
