@@ -76,6 +76,13 @@ Configure `$update_channel` in `config.rb`
 $update_channel="stable"
 ```
 
+## UPDATE THE BOX
+Update to newer version of the box "coreos-stable"
+
+```bash
+$ vagrant box update
+```
+
 ## MONITORING
 ### Datadog API Key
 
