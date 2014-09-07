@@ -13,6 +13,7 @@ CLOUD_CONFIG_ERB_PATH = File.join(File.dirname(__FILE__), "user-data.yml.erb")
 CLOUD_CONFIG_PATH = File.join(File.dirname(__FILE__), "user-data")
 CONFIG = File.join(File.dirname(__FILE__), "config.rb")
 
+# Create user-data from erb template
 erb = File.open(CLOUD_CONFIG_ERB_PATH) { |f| ERB.new(f.read) }
 File.write(CLOUD_CONFIG_PATH, erb.result(binding))
 
