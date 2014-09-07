@@ -40,6 +40,24 @@ coreos:
 
         [Install]
         WantedBy=sockets.target
+    - name: registry.service
+      command: start
+      enable: true
+      content: |
+        [Unit]
+        Description=Private Docker Registry
+        After=docker.service
+        Requires=docker.service
+
+        [Service]
+        TimeoutStartSec=0
+        ExecStartPre=-/usr/bin/docker kill registry
+        ExecStartPre=-/usr/bin/docker rm registry
+        ExecStartPre=/usr/bin/docker pull registry:0.7.3
+        ExecStart=/usr/bin/docker run -d --name registry -e SETTINGS_FLAVOR=prod -e AWS_KEY=<%= ENV["REGISTRY_AWS_KEY"] %> -e AWS_SECRET=<%= ENV["REGISTRY_AWS_SECRET"] %> -e AWS_BUCKET=<%= ENV["REGISTRY_AWS_BUCKET"] %> -e AWS_SECURE=true -e DOCKER_REGISTRY_CONFIG=/docker-registry/config/config_sample.yml -e STORAGE_PATH=/ -e SEARCH_BACKEND=sqlalchemy -e GUNICORN_WORKERS=3 -p 5000:5000 registry:0.7.3 docker-registry
+
+        [Install]
+        WantedBy=multi-user.target
     - name: dd-agent.service
       command: start
       enable: true
