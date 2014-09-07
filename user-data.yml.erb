@@ -12,6 +12,16 @@ coreos:
   fleet:
     public-ip: $public_ipv4
   units:
+    - name: settimezone.service
+      command: start
+      content: |
+        [Unit]
+        Description=Set the timezone
+
+        [Service]
+        ExecStart=/usr/bin/timedatectl set-timezone Asia/Tokyo
+        RemainAfterExit=yes
+        Type=oneshot
     - name: etcd.service
       command: start
     - name: fleet.service
@@ -48,16 +58,6 @@ coreos:
 
         [Install]
         WantedBy=multi-user.target
-    - name: settimezone.service
-      command: start
-      content: |
-        [Unit]
-        Description=Set the timezone
-
-        [Service]
-        ExecStart=/usr/bin/timedatectl set-timezone Asia/Tokyo
-        RemainAfterExit=yes
-        Type=oneshot
 write_files:
   - path: /etc/ntp.conf
     content: |
