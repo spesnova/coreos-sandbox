@@ -14,6 +14,24 @@ echo "  CoreOS Sandbox"
 echo ""
 
 #
+# Check for bundler
+#
+if test ! $(which bundle)
+then
+  echo "  x You need to install Bundler:"
+  echo "    gem install bundler"
+  exit 1
+else
+  echo "  + Bundler found."
+fi
+
+#
+# Install Gems
+#
+echo "  + Bootstrapping your Rubies."
+bundle install -j4 --quiet
+
+#
 # Prepare .env
 #
 if test -f .env
