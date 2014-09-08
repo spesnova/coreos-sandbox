@@ -83,6 +83,12 @@ Update to newer version of the box "coreos-stable"
 $ vagrant box update
 ```
 
+## TESTING
+
+```bash
+$ rake spec
+```
+
 ## MONITORING
 ### Datadog API Key
 
