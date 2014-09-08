@@ -54,6 +54,11 @@ end
 #
 # Checks for registry.service
 #
+describe command("systemctl status registry.service") do
+  its(:stdout) { should match /active \(running\)/ }
+  its(:exit_status) { should eq 0 }
+end
+
 describe command("docker ps | grep registry") do
   its(:stdout) { should match /Up/ }
   its(:exit_status) { should eq 0 }
@@ -62,6 +67,11 @@ end
 #
 # Checks for dd-agent.service
 #
+describe command("systemctl status dd-agent.service") do
+  its(:stdout) { should match /active \(running\)/ }
+  its(:exit_status) { should eq 0 }
+end
+
 describe command("docker ps | grep dd-agent") do
   its(:stdout) { should match /Up/ }
   its(:exit_status) { should eq 0 }
