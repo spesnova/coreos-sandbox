@@ -23,8 +23,15 @@ $ vagrant up
 $ vagrant ssh
 ```
 
-## PROVISIONING WITH CLOUD INIT
-### Using GitHub SSH key to login
+## TESTING
+
+```bash
+$ script/cibuild
+```
+
+## CONFIGURATION
+### Provisioning with Cloud-Config
+#### Using GitHub SSH key to login
 
 `user-data.yml.erb`
 
@@ -52,8 +59,8 @@ You can login to CoreOS machine using GitHub SSH key.
 $ ssh seigo@core-01
 ```
 
-## CLUSTER SETUP
-### Etcd Discovery
+### Cluster Setup
+#### Etcd Discovery
 Get new token from https://discovery.etcd.io/new , then set this to `.env`
 
 ```
@@ -69,28 +76,23 @@ Configure `$num_instances` in `config.rb`
 $num_instances=3
 ```
 
-### Specify channel
+#### Specify channel
 Configure `$update_channel` in `config.rb`
 
 ```ruby
 $update_channel="stable"
 ```
 
-## UPDATE THE BOX
+### Updating the Box
 Update to newer version of the box "coreos-stable"
 
 ```bash
 $ vagrant box update
 ```
 
-## TESTING
-
-```bash
-$ rake spec
-```
-
-## MONITORING
-### Datadog API Key
+### Monitoring by Datadog
+#### Datadog API Key
+Set datadog API key to .env
 
 ```
 DATADOG_API_KEY=xxxxxxxxxxxxxxxxxxxx
