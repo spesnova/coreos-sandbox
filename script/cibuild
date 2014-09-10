@@ -1,0 +1,17 @@
+#!/bin/sh
+# Usage: script/cibuild
+# CI build script
+#
+set -e
+
+# bootstrap gem environment changes
+echo "==> Bootstrapping gems..."
+script/bootstrap
+
+echo "==> Running vms..."
+vagrant up
+
+echo "==> Running tests..."
+rake spec
+
+exit 0
