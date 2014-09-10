@@ -51,6 +51,9 @@ Host core-01
   HostName 172.17.8.101
   User         seigo
   IdentityFile ~/.ssh/github_ssh_private_key
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+  LogLevel FATAL
 ```
 
 You can login to CoreOS machine using GitHub SSH key.
