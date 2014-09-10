@@ -24,6 +24,11 @@ describe command("systemctl status fleet.service") do
   its(:exit_status) { should eq 0 }
 end
 
+describe command("fleetctl list-machines --no-legend | wc -l") do
+  its(:stdout) { should match /^3$/ }
+  its(:exit_status) { should eq 0 }
+end
+
 #
 # Checks for docker.service
 #
