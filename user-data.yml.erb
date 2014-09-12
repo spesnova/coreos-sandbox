@@ -12,6 +12,30 @@ coreos:
   fleet:
     public-ip: $public_ipv4
   units:
+    - name: journal-router-short.service
+      command: start
+      content: |
+        [Unit]
+        Description=Journal Router (short)
+
+        [Service]
+        TimeoutStartSec=0
+        ExecStart=/bin/sh -c '/usr/bin/journalctl -o short -f | sed \"s/^/<%= ENV["LOGENTRIES_JOURNAL_SHORT"] %> \\0/g\" | ncat data.logentries.com 10000'
+
+        [Install]
+        WantedBy=multi-user.target
+    - name: journal-router-json.service
+      command: start
+      content: |
+        [Unit]
+        Description=Journal Router (json)
+
+        [Service]
+        TimeoutStartSec=0
+        ExecStart=/bin/sh -c '/usr/bin/journalctl -o json -f | sed \"s/^/<%= ENV["LOGENTRIES_JOURNAL_JSON"] %> \\0/g\" | ncat data.logentries.com 10000'
+
+        [Install]
+        WantedBy=multi-user.target
     - name: settimezone.service
       command: start
       content: |
