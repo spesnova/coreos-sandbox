@@ -70,6 +70,24 @@ describe command("docker ps | grep registry") do
 end
 
 #
+# Checks for logspout.service
+#
+describe command("systemctl status logspout.service") do
+  its(:stdout) { should match /active \(running\)/ }
+  its(:exit_status) { should eq 0 }
+end
+
+describe command("docker ps | grep logspout") do
+  its(:stdout) { should match /Up/ }
+  its(:exit_status) { should eq 0 }
+end
+
+describe command("curl -I localhost:8000/logs") do
+  its(:stdout) { should match /200/ }
+  its(:exit_status) { should eq 0 }
+end
+
+#
 # Checks for dd-agent.service
 #
 describe command("systemctl status dd-agent.service") do
@@ -95,4 +113,3 @@ describe command("docker-enter") do
   its(:exit_status) { should be }
   its(:exit_status) { should eq 0 }
 end
-
