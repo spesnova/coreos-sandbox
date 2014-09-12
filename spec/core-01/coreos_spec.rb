@@ -9,6 +9,19 @@ describe command("systemctl status systemd-journald.service") do
 end
 
 #
+# Checks for journal-router
+#
+describe command("systemctl status journal-router-short.service") do
+  its(:stdout) { should match /active \(running\)/ }
+  its(:exit_status) { should eq 0 }
+end
+
+describe command("systemctl status journal-router-json.service") do
+  its(:stdout) { should match /active \(running\)/ }
+  its(:exit_status) { should eq 0 }
+end
+
+#
 # Checks for etcd.service
 #
 describe command("systemctl status etcd.service") do
