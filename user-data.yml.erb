@@ -59,6 +59,25 @@ coreos:
 
         [Install]
         WantedBy=multi-user.target
+    - name: logspout.service
+      command: start
+      enable: true
+      content: |
+        [Unit]
+        Description=Logspout
+        After=docker.service
+        Requires=docker.service
+
+        [Service]
+        TimeoutStartSec=0
+        ExecStartPre=-/usr/bin/docker kill logspout
+        ExecStartPre=-/usr/bin/docker rm logspout
+        ExecStartPre=/usr/bin/docker pull progrium/logspout:latest
+        ExecStart=/usr/bin/docker run --name logspout -h %H -p 8000:8000 -v=/var/run/docker.sock:/tmp/docker.sock progrium/logspout:latest
+        ExecStop=/usr/bin/docker stop progrium/logspout:latest
+
+        [Install]
+        WantedBy=multi-user.target
     - name: dd-agent.service
       command: start
       enable: true
