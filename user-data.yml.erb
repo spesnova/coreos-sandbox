@@ -116,7 +116,7 @@ coreos:
         ExecStartPre=-/usr/bin/docker kill registrator
         ExecStartPre=-/usr/bin/docker rm registrator
         ExecStartPre=/usr/bin/docker pull progrium/registrator:latest
-        ExecStart=/usr/bin/docker run --name registrator -h %H -v /var/run/docker.sock:/tmp/docker.sock progrium/registrator:latest -ip=$public_ipv4 etcd://$public_ipv4:4001/services
+        ExecStart=/usr/bin/docker run --name registrator -h %H -v /var/run/docker.sock:/tmp/docker.sock progrium/registrator:latest -ip=$private_ipv4 etcd://$private_ipv4:4001/services
         ExecStop=/usr/bin/docker stop registrator
 
         [Install]
