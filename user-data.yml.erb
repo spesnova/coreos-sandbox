@@ -117,7 +117,7 @@ coreos:
         ExecStartPre=-/usr/bin/docker rm logspout
         ExecStartPre=/usr/bin/docker pull progrium/logspout:latest
         ExecStart=/usr/bin/docker run --name logspout -h %H -p 8000:8000 -v=/var/run/docker.sock:/tmp/docker.sock progrium/logspout:latest
-        ExecStop=/usr/bin/docker stop progrium/logspout:latest
+        ExecStop=/usr/bin/docker stop logspout
 
         [Install]
         WantedBy=multi-user.target
