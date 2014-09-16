@@ -136,6 +136,8 @@ coreos:
         ExecStartPre=-/usr/bin/docker rm logspout
         ExecStartPre=/usr/bin/docker pull progrium/logspout:latest
         ExecStart=/usr/bin/docker run --name logspout -h %H -p 8000:8000 -v=/var/run/docker.sock:/tmp/docker.sock progrium/logspout:latest
+        ExecStartPost=/usr/bin/sleep 1
+        ExecStartPost=/usr/bin/curl localhost:8000/routes -X POST -d '{"target": {"type": "rfc5424", "addr": "api.logentries.com:10000", "structured_data": "<%= ENV['LOGENTRIES_TOKEN_LOGSPOUT']%>"}}'
         ExecStop=/usr/bin/docker stop logspout
 
         [Install]
