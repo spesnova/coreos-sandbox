@@ -1,6 +1,7 @@
 #!/bin/sh
+#
 # Usage: script/cibuild
-# CI build script
+# Description: CI build script
 #
 set -e
 
