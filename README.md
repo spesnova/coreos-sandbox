@@ -105,6 +105,7 @@ DATADOG_API_KEY=xxxxxxxxxxxxxxxxxxxx
 Register SSH public keys that imported from github to Gitreceive.
 
 ```bash
+# on CoreOS machines
 $ /home/git/register-keys <github-username-1>,<github-username-2>,<github-username-3>
 
 # Example
