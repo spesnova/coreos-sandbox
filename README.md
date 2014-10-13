@@ -49,7 +49,7 @@ users:
 # Local CoreOS Cluster
 Host core-01
   HostName 172.17.8.101
-  User         seigo
+  User spesnova
   IdentityFile ~/.ssh/github_ssh_private_key
   UserKnownHostsFile /dev/null
   StrictHostKeyChecking no
@@ -99,4 +99,14 @@ Set datadog API key to .env
 
 ```
 DATADOG_API_KEY=xxxxxxxxxxxxxxxxxxxx
+```
+
+### Gitreceive
+Register SSH public keys that imported from github to Gitreceive.
+
+```bash
+$ /home/git/register-keys <github-username-1>,<github-username-2>,<github-username-3>
+
+# Example
+$ /home/git/register-keys spesnova
 ```
