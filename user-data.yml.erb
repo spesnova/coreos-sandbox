@@ -141,7 +141,7 @@ coreos:
         [Install]
         WantedBy=multi-user.target
 users:
-  - name: seigo
+  - name: spesnova
     coreos-ssh-import-github: spesnova
     groups:
       - sudo
@@ -419,5 +419,24 @@ write_files:
 
       echo "----> Cleanup build directory ..."
       rm -rf /tmp/build/$APP
+
+      exit 0
+  - path: /home/git/register-keys
+    permissions: 0755
+    owner: git:git
+    content: |
+      #!/bin/bash
+      #
+      # Usage: register-keys '<github-username1>,<github-username2>'
+      # Description: Register public key to gitreceive
+      #
+
+      IFS=,
+
+      for user in $1
+      do
+        cat /home/$user/.ssh/authorized_keys.d/github-$user | sudo gitreceive upload-key $user
+        echo "Registered key for $user"
+      done
 
       exit 0
