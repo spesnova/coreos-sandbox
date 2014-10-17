@@ -404,21 +404,44 @@ write_files:
     content: |
       #!/bin/bash
 
-      APP=$1
+      REPO=$1
+      APP=$(echo $REPO | sed -e "s/\.git//g")
       REVISION=$2
       USER=$3
 
+      #
+      # Create workspace
+      #
       echo "----> Unpacking repo..."
-      mkdir -p /tmp/build/$APP && cat | tar -x -C /tmp/build/$APP
-      cd /tmp/build/$APP
+      mkdir -p /tmp/build/$REPO && cat | tar -x -C /tmp/build/$REPO
+      test $? -ne 0 ; exit $?
 
-      echo "----> Stack detected ..."
+      #
+      # Detect app/stack
+      #
+      cd /tmp/build/$REPO
+      #echo "----> Stack detected ..."
 
+      #
+      # Pre build hook
+      #
+
+      #
+      # Build docker image
+      #
       echo "----> Building docker image ..."
       docker build -t $APP .
+      test $? -ne 0 ; exit $?
 
+      #
+      # Post build hook
+      #
+
+      #
+      # Cleanup
+      #
       echo "----> Cleanup build directory ..."
-      rm -rf /tmp/build/$APP
+      rm -rf /tmp/build/$REPO
 
       exit 0
   - path: /home/git/register-keys
