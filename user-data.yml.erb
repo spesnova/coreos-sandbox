@@ -414,7 +414,7 @@ write_files:
       #
       echo "----> Unpacking repo..."
       mkdir -p /tmp/build/$REPO && cat | tar -x -C /tmp/build/$REPO
-      test $? -eq 1 || exit 1
+      test $? -eq 0 || exit 1
 
       #
       # Detect app/stack
@@ -431,7 +431,7 @@ write_files:
       #
       echo "----> Building docker image ..."
       docker build -t $APP .
-      test $? -eq 1 || exit 1
+      test $? -eq 0 || exit 1
 
       #
       # Post build hook
