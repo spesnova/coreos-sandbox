@@ -412,7 +412,7 @@ write_files:
       #
       # Create workspace
       #
-      echo "----> Unpacking repo..."
+      echo "-----> Unpacking repo..."
       mkdir -p /tmp/build/$REPO && cat | tar -x -C /tmp/build/$REPO
       test $? -eq 0 || exit 1
 
@@ -429,8 +429,7 @@ write_files:
       #
       # Build docker image
       #
-      echo "----> Building docker image ..."
-      docker build -t $APP .
+      /opt/bin/kujira build $APP . --email $USER --revision $REVISION
       test $? -eq 0 || exit 1
 
       #
@@ -440,7 +439,7 @@ write_files:
       #
       # Cleanup
       #
-      echo "----> Cleanup build directory ..."
+      echo "-----> Cleanup build directory ..."
       rm -rf /tmp/build/$REPO
 
       exit 0
