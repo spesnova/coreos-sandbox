@@ -13,6 +13,6 @@ echo "==> Running vms..."
 vagrant up
 
 echo "==> Running tests..."
-rake spec
+bundle exec rake spec
 
 exit 0
