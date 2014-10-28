@@ -5,7 +5,7 @@ require 'tempfile'
 set :backend, :ssh
 
 # Serverspec can't detect and doesn't support CoreOS yet.
-set :os, :family => '', :release => '7', :arch => 'x86_64'
+set :os, :family => 'redhat', :release => '7', :arch => 'x86_64'
 
 
 if ENV['ASK_SUDO_PASSWORD']
