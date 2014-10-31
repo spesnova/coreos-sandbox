@@ -443,6 +443,12 @@ write_files:
       #
 
       #
+      # Ship docker image
+      #
+      /opt/bin/kujira ship $APP --email $USER
+      test $? -eq 0 || exit 1
+
+      #
       # Cleanup
       #
       echo "-----> Cleanup build directory ..."
