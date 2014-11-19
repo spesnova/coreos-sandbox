@@ -121,6 +121,25 @@ coreos:
 
         [Install]
         WantedBy=multi-user.target
+    - name: registrator-vulcand.service
+      command: start
+      enable: true
+      content: |
+        [Unit]
+        Description=Registrator for vulcand
+        After=docker.service
+        Requires=docker.service
+
+        [Service]
+        TimeoutStartSec=0
+        ExecStartPre=-/usr/bin/docker kill registrator-vulcand
+        ExecStartPre=-/usr/bin/docker rm registrator-vulcand
+        ExecStartPre=/usr/bin/docker pull quay.io/wantedly/registrator:stable
+        ExecStart=/usr/bin/docker run --name registrator-vulcand -h %H -v /var/run/docker.sock:/tmp/docker.sock quay.io/wantedly/registrator:stable -ip=$private_ipv4 vulcand://$private_ipv4:4001/vulcand
+        ExecStop=/usr/bin/docker stop registrator-vulcand
+
+        [Install]
+        WantedBy=multi-user.target
     - name: logspout.service
       command: start
       enable: true
