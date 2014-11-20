@@ -451,7 +451,7 @@ write_files:
       REPO=$1
       APP=$(echo $REPO | sed -e "s/\.git//g")
       REVISION=$2
-      USER=$3
+      USERNAME=$3
 
       #
       # Create workspace
@@ -473,7 +473,7 @@ write_files:
       #
       # Build docker image
       #
-      /opt/bin/kujira build $APP . --email $USER --revision $REVISION
+      /opt/bin/kujira build $APP . --username $USERNAME --revision $REVISION
       test $? -eq 0 || exit 1
 
       #
@@ -483,7 +483,7 @@ write_files:
       #
       # Ship docker image
       #
-      /opt/bin/kujira ship $APP --email $USER
+      /opt/bin/kujira ship $APP --username $USERNAME
       test $? -eq 0 || exit 1
 
       #
