@@ -218,6 +218,16 @@ write_files:
     content: |
       [Socket]
       ListenStream=127.0.0.1:4002
+  - path: /home/core/.dockercfg
+    permissions: 0644
+    owner: core:core
+    content: |
+      {
+        "quay.io": {
+          "auth": "<%= ENV["DOCKER_QUAY_AUTH"]%>",
+          "email": ""
+        }
+      }
   - path: /opt/bin/docker-enter
     permissions: 0755
     owner: root:root
