@@ -159,13 +159,67 @@ coreos:
 
         [Install]
         WantedBy=multi-user.target
+    - name: kujira.service
+      command: start
+      enable: true
+      content: |
+        [Unit]
+        Description=Kujira Server
+        After=docker.service
+        Requires=docker.service
+
+        After=etcd.service
+        Requires=etcd.service
+
+        [Service]
+        TimeoutStartSec=0
+        ExecStartPre=-/usr/bin/docker kill kujirad
+        ExecStartPre=-/usr/bin/docker rm kujirad
+        ExecStart=/usr/bin/docker run -d --name kujirad -p 3000:3000 -e DEFAULT_DOMAIN=kujiraapp.com -e ETCD_MACHINES=http://172.17.8.101:4001 -e FLEET_API_URL=unix:///var/run/fleet.sock -v /var/run/fleet.sock:/var/run/fleet.sock -v /home/git:/home/git:rw quay.io/wantedly/kujirad
+        ExecStop=/usr/bin/docker stop kujirad
+
+        [Install]
+        WantedBy=multi-user.target
 users:
+  - name: git
+    groups:
+      - docker
   - name: spesnova
     coreos-ssh-import-github: spesnova
     groups:
       - sudo
       - docker
-  - name: git
+  - name: awakia
+    coreos-ssh-import-github: awakia
+    groups:
+      - sudo
+      - docker
+  - name: luvtechno
+    coreos-ssh-import-github: luvtechno
+    groups:
+      - docker
+  - name: reikubonaga
+    coreos-ssh-import-github: reikubonaga
+    groups:
+      - docker
+  - name: imaimiami
+    coreos-ssh-import-github: imaimiami
+    groups:
+      - docker
+  - name: jun0342
+    coreos-ssh-import-github: jun0342
+    groups:
+      - docker
+  - name: susieyy
+    coreos-ssh-import-github: susieyy
+    groups:
+      - docker
+  - name: morizotter
+    coreos-ssh-import-github: morizotter
+    groups:
+      - docker
+  - name: yoshimikeisui
+    coreos-ssh-import-github: yoshimikeisui
     groups:
       - docker
 write_files:
