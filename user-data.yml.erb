@@ -102,25 +102,6 @@ coreos:
 
         [Install]
         WantedBy=multi-user.target
-    - name: registrator.service
-      command: start
-      enable: true
-      content: |
-        [Unit]
-        Description=Registrator
-        After=docker.service
-        Requires=docker.service
-
-        [Service]
-        TimeoutStartSec=0
-        ExecStartPre=-/usr/bin/docker kill registrator
-        ExecStartPre=-/usr/bin/docker rm registrator
-        ExecStartPre=/usr/bin/docker pull progrium/registrator:latest
-        ExecStart=/usr/bin/docker run --name registrator -h %H -v /var/run/docker.sock:/tmp/docker.sock progrium/registrator:latest -ip=$private_ipv4 etcd://$private_ipv4:4001/services
-        ExecStop=/usr/bin/docker stop registrator
-
-        [Install]
-        WantedBy=multi-user.target
     - name: registrator-vulcand.service
       command: start
       enable: true
