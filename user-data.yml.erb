@@ -176,7 +176,7 @@ coreos:
         User=core
         ExecStartPre=-/usr/bin/docker kill kujirad
         ExecStartPre=-/usr/bin/docker rm kujirad
-        ExecStart=/usr/bin/docker run --name kujirad -p 3000:3000 -e DEFAULT_DOMAIN=kujiraapp.com -e ETCD_MACHINES=http://172.17.8.101:4001 -e FLEET_API_URL=unix:///var/run/fleet.sock -v /var/run/fleet.sock:/var/run/fleet.sock -v /home/git:/home/git:rw quay.io/wantedly/kujirad
+        ExecStart=/usr/bin/docker run --name kujirad -p 3000:3000 -e DEFAULT_DOMAIN=kujiraapp.com -e ETCD_MACHINES=http://$private_ipv4:4001 -e FLEET_API_URL=unix:///var/run/fleet.sock -v /var/run/fleet.sock:/var/run/fleet.sock -v /home/git:/home/git:rw quay.io/wantedly/kujirad
         ExecStop=/usr/bin/docker stop kujirad
 
         [Install]
