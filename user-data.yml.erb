@@ -497,6 +497,12 @@ write_files:
       test $? -eq 0 || exit 1
 
       #
+      # Run docker containers
+      #
+      /opt/bin/kujira deploy $APP
+      test $? -eq 0 || exit 1
+
+      #
       # Cleanup
       #
       echo "-----> Cleanup build directory ..."
