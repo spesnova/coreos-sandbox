@@ -456,6 +456,8 @@ write_files:
       APP=$(echo $REPO | sed -e "s/\.git//g")
       REVISION=$2
       USERNAME=$3
+      export KUJIRA_GIT_HOST=localhost
+      export KUJIRA_URL=http://localhost:3000
 
       #
       # Create workspace
