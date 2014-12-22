@@ -2,20 +2,11 @@
 # # vi: set ft=ruby :
 
 require 'fileutils'
-require 'erb'
-require 'dotenv'
-
-Dotenv.load
 
 Vagrant.require_version ">= 1.6.0"
 
-CLOUD_CONFIG_ERB_PATH = File.join(File.dirname(__FILE__), "user-data.yml.erb")
 CLOUD_CONFIG_PATH = File.join(File.dirname(__FILE__), "user-data")
 CONFIG = File.join(File.dirname(__FILE__), "config.rb")
-
-# Create user-data from erb template
-erb = File.open(CLOUD_CONFIG_ERB_PATH) { |f| ERB.new(f.read) }
-File.write(CLOUD_CONFIG_PATH, erb.result(binding))
 
 # Defaults for config options defined in CONFIG
 $num_instances = 1
@@ -36,6 +27,9 @@ if File.exist?(CONFIG)
 end
 
 Vagrant.configure("2") do |config|
+  # always use Vagrants insecure key
+  config.ssh.insert_key = false
+
   config.vm.box = "coreos-%s" % $update_channel
   config.vm.box_version = ">= 308.0.1"
   config.vm.box_url = "http://%s.release.core-os.net/amd64-usr/current/coreos_production_vagrant.json" % $update_channel

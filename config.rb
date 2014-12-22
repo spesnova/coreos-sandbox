@@ -1,3 +1,29 @@
+require 'erb'
+require 'dotenv'
+
+# Create user-data from erb template
+Dotenv.load
+erb = File.open(File.join(File.dirname(__FILE__), "user-data.yml.erb")) { |f| ERB.new(f.read) }
+File.write(File.join(File.dirname(__FILE__), "user-data"), erb.result(binding))
+
+# To automatically replace the discovery token on 'vagrant up', uncomment
+# the lines below:
+#
+#if File.exists?('user-data') && ARGV[0].eql?('up')
+#  require 'open-uri'
+#  require 'yaml'
+#
+#  token = open('https://discovery.etcd.io/new').read
+#
+#  data = YAML.load(IO.readlines('user-data')[1..-1].join)
+#  data['coreos']['etcd']['discovery'] = token
+#
+#  yaml = YAML.dump(data)
+#  File.open('user-data', 'w') { |file| file.write("#cloud-config\n\n#{yaml}") }
+#end
+#
+
+#
 # coreos-vagrant is configured through a series of configuration
 # options (global ruby variables) which are detailed below. To modify
 # these options, first copy this file to "config.rb". Then simply
