@@ -3,6 +3,7 @@ log/
 user-data
 .env
 .bundle/*
+.DS_Store
 
 # for vim
 .swp
