@@ -2,7 +2,8 @@
 
 coreos:
   update:
-    group: stable
+    group: <%= ENV["UPDATE_GRUOP"] %>
+    reboot-strategy: <%= ENV["UPDATE_STRATEGY"] %>
   etcd:
     # generate a new token for each unique cluster from https://discovery.etcd.io/new
     # WARNING: replace each time you 'vagrant destroy'
