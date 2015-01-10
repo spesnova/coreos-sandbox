@@ -2,7 +2,7 @@
 
 coreos:
   update:
-    group: <%= ENV["UPDATE_GRUOP"] %>
+    group: <%= ENV["UPDATE_GROUP"] %>
     reboot-strategy: <%= ENV["UPDATE_STRATEGY"] %>
   etcd:
     # generate a new token for each unique cluster from https://discovery.etcd.io/new
